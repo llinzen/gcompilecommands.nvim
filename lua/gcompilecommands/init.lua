@@ -12,7 +12,10 @@ end
 
 local function generateCompileCommands()
 	vim.cmd("silent! !(make fclean)")
-	local cmd = "make 2>&1 -wn | egrep 'gcc|clang|clang\\+\\+|g\\+\\+.*' > " .. vim.g.gcompilecommands_tmp_file
+	if vim.v.shell_error ~= 0 then
+		vim.cmd("silent! !(make clean")
+	end
+	local cmd = "make 2>&1 -wn | egrep 'gcc|clang|clang\\+\\+|c\\+\\+|g\\+\\+.*' > " .. vim.g.gcompilecommands_tmp_file
 	vim.cmd("silent! !" .. cmd)
 	if vim.v.shell_error == 0 then
 		local f = io.open(vim.g.gcompilecommands_tmp_file, "r")
