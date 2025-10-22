@@ -24,6 +24,20 @@ To use this plugin, follow these simple steps:
 
 4. After successful execution, the `compile_commands.json` file will be available for use by external tools.
 
+### Cmake
+
+Cmake projects store the header, source and make files in dedicated subdirectories. To generate and use the compilation database the :GCompilecommands call can be made from the cmake generated Makefile in the build directory. 
+To use this generated database one can tell your lsp where to find it. For clangd this can be achived with a .clangd config file located at the project root with the following contents:
+```
+CompileFlags:
+  CompilationDatabase: build/
+```
+Another helpful for cmake projects is the following line, which can be placed in a .nvim.lua file at the project base:
+```
+vim.cmd(":let &makeprg='cd build && cmake .. && make -Wall -w $* && cd ..'")
+```
+This configures the vim builtin :make command to first envoke cmake and then invoke make in the build directory. This command can of course be taylored to your needs.
+
 ## Contributions
 
 Contributions are welcome! If you encounter issues, have improvements, or have ideas to make this plugin even more useful, feel free to open an [issue](https://github.com/leosmaia21/gcompilecommands.nvim/issues) or submit a [pull request](https://github.com/leosmaia21/gcompilecommands.nvim/pulls).
