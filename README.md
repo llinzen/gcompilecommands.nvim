@@ -17,7 +17,7 @@ To use this plugin, follow these simple steps:
   opts = {
     tmp_file_path = "$HOME/tmp/compilecommandsNEOVIM.json"
   },
-  ft = { "c", "cpp" }, -- lazy load plugin only on C and C++ filetypes
+  ft = { "c", "cpp", "make" }, -- lazy load plugin only on C, C++ and make filetypes
 }
 ```
 3. In your project file, open Neovim and run the `:Gcompilecommands` command. This will execute the `make` command in dry-run mode to generate the `compile_commands.json` file. Note that it will also run `make fclean` before generating the file.
